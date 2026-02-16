@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a00, #ff3c00);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Main Container */
+#cont {
+    background-color: white;
+    width: 600px;
+    height: 380px;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#cont:hover {
+    transform: scale(1.02);
+}
+
+/* Title */
+#tex {
+    text-align: center;
+    color: darkorange;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+#val,
+#val2 {
+    display: block;
+    margin: 15px auto;
+    height: 35px;
+    width: 260px;
+    font-size: 16px;
+    padding-left: 10px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: 0.3s;
+}
+
+#val:focus,
+#val2:focus {
+    border-color: darkorange;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+}
+
+/* Button */
+button {
+    display: block;
+    margin: 20px auto;
+    width: 120px;
+    height: 45px;
+    font-size: 18px;
+    background-color: darkorange;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff6600;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Table */
+#list {
+    margin-top: 30px;
+    width: 600px;
+    border-collapse: collapse;
+    animation: slideUp 0.6s ease;
+}
+
+#list td {
+    background-color: white;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+</style>
+<body>
+    <div id="cont">
+        <div>
+            <h1 id="tex">TODO LIST</h1>
+        </div>
+        <div>
+            <input type="text" id="val" placeholder="enter a task......">   
+            <input type="time"  id="val2" placeholder="enter a time....">
+            <button onclick="addlist()">add</button>
+        </div>
+    </div>
+    <div>
+        <table id="list">
+
+        </table>
+    </div>
+</body>
+<script>
+    function addlist(){
+    let a = document.getElementById("val").value;
+    let b = document.getElementById("val2").value;
+
+    let z = document.getElementById("list");
+    let f = document.createElement("tr");
+
+    f.innerHTML = `
+        <td>${a}</td>
+        <td>${b}</td>
+        <td><button onclick="this.parentElement.parentElement.remove()">remove</button></td>
+    `;
+
+    z.append(f);
+}
+
+</script>
+</html>
