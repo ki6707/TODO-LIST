@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <style>
 body {
     margin: 0;
@@ -101,12 +102,8 @@ button:active {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes slideUp {
@@ -119,8 +116,8 @@ button:active {
         opacity: 1;
     }
 }
-
 </style>
+
 <body>
     <div id="cont">
         <div>
@@ -128,32 +125,54 @@ button:active {
         </div>
         <div>
             <input type="text" id="val" placeholder="enter a task......">   
-            <input type="time"  id="val2" placeholder="enter a time....">
+            <input type="time" id="val2">
             <button onclick="addlist()">add</button>
         </div>
     </div>
-    <div>
-        <table id="list">
 
-        </table>
+    <div>
+        <table id="list"></table>
     </div>
 </body>
+
 <script>
-    function addlist(){
-    let a = document.getElementById("val").value;
-    let b = document.getElementById("val2").value;
+    // Load saved tasks when page opens
+    window.onload = function () {
+        let saved = localStorage.getItem("tasks");
+        if (saved) {
+            document.getElementById("list").innerHTML = saved;
+        }
+    };
 
-    let z = document.getElementById("list");
-    let f = document.createElement("tr");
+    function addlist() {
+        let a = document.getElementById("val").value;
+        let b = document.getElementById("val2").value;
 
-    f.innerHTML = `
-        <td>${a}</td>
-        <td>${b}</td>
-        <td><button onclick="this.parentElement.parentElement.remove()">remove</button></td>
-    `;
+        if (a === "" || b === "") return;
 
-    z.append(f);
-}
+        let z = document.getElementById("list");
+        let f = document.createElement("tr");
 
+        f.innerHTML = `
+            <td>${a}</td>
+            <td>${b}</td>
+            <td><button onclick="removetask(this)">remove</button></td>
+        `;
+
+        z.append(f);
+
+        // Save tasks
+        localStorage.setItem("tasks", z.innerHTML);
+
+        // Clear input fields
+        document.getElementById("val").value = "";
+        document.getElementById("val2").value = "";
+    }
+
+    function removetask(btn) {
+        btn.parentElement.parentElement.remove();
+        localStorage.setItem("tasks", document.getElementById("list").innerHTML);
+    }
 </script>
+
 </html>
